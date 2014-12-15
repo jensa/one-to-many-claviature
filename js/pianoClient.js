@@ -9,7 +9,7 @@ socket.on('play', function (data) {
   if(chosenNote == undefined)
     return;
   $('#'+data.note).css("background-color", "black");
-  var audio = new Audio('/sound/'+chosenNote+'.mp3')
+  var audio = new Audio('/sound/'+data.note+'.mp3')
   audio.play();
   setTimeout(function(){
     $('#'+data.note).css("background-color", "white");
@@ -19,8 +19,8 @@ socket.on('play', function (data) {
 });
 
 $('.noteChoice').click(function(){
-  if(chosenNote != undefined)
-    $('#'+chosenNote).removeClass("selected");
+  //if(chosenNote != undefined)
+  //  $('#'+chosenNote).removeClass("selected");
   chosenNote = $(this).attr ( "id" );
   $(this).addClass("selected");
   socket.emit('noteChoice', {note:chosenNote});

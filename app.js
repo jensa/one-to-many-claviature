@@ -36,16 +36,17 @@ io.on('connection', function (socket) {
   });
 
   socket.on('noteChoice', function (data){
-    notes[data.note].push(socket);
-    if(chosenNote == undefined){
-      chosenNote = data.note;
-      return;
+    //if(chosenNote == undefined){
+    //  chosenNote = data.note;
+    //  return;
+    //}
+
+    var oldIndex = notes[data.note].indexOf(socket);
+    if (oldIndex > -1) {
+	return;
     }
 
-    var oldIndex = notes[chosenNote].indexOf(socket);
-    if (oldIndex > -1) {
-      notes[chosenNote].splice(oldIndex, 1);
-    }
+    notes[data.note].push(socket);
     chosenNote = data.note;
 
     console.log("noteChoice recieved, result: " + data.note);
